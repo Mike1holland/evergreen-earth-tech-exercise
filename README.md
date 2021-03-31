@@ -16,12 +16,15 @@ You can either submit via a public repository (e.g. github/gitlab/etc.) or via z
 A recently implemented data collection form provides an array of customer submitted housing details, you are implementing the processing which will take each house in the provided json and provide an output summary to be used in providing the customer the quote. The output should be in the form, list each house separately:
 
 ```
-<HOUSE ID>
+<Submission ID>
 =========================
   Estimated Heat Loss = 
   Power Heat Loss = 
   Recommended Heat Pump = 
-  Cost = 
+  Cost Breakdown
+    <label>, <cost>
+    <label>, <cost>
+    ...
   Total Cost, including VAT = 
 ```
 
