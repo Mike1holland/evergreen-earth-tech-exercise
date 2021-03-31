@@ -36,12 +36,12 @@ The provided API was built by a third party and somewhat strange behaviour has b
 
         floorArea (m^2) * heatingFactor * insulationFactor = heat loss (kWh)
 
-2. Using weather data from the API (LINK) and the property's design region. Calculate the power heat loss of the property using the total heat loss calculated and the returned heating degree days:
+2. Using weather data from the API and the property's design region, calculate the power heat loss of the property using the total heat loss calculated and the returned heating degree days:
         
         heat loss (kWh) / heating degree days = Power heat loss (kW)
 
-3. Using the data in the heatPumpData.json file match a heat pump to the property using the property's power heat loss and each heat pump's output capacity. Calculate the total cost for the heat pump installation - total costs should include 5% VAT.
-    Note: the Heat Pump should not be undersized.
+3. Using the data in the heatPumpData.json file match a heat pump to the property using the property's calculated power heat loss and each heat pump's output capacity. Calculate the total cost for the heat pump installation - total costs should include 5% VAT.
+    *Note: the Heat Pump should **not be undersized**.*
 
 
 ## Weather Data API
