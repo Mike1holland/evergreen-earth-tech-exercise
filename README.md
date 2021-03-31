@@ -13,12 +13,14 @@ You can either submit via a public repository (e.g. github/gitlab/etc.) or via z
 
 ## Problem
 
-A recently implemented data collection form provides an array of customer submitted housing details, you are implementing the processing which will take each house in the provided json and provide an output summary to be used in providing the customer the quote. The output should be in the form, list each house separately:
+A recently implemented data collection form provides an array of customer submitted housing details, you are implementing the processing which will take each house in the provided json and provide an output summary to be used in providing the customer the quote. The output should be in the form, list each house separately, with the correct values populated:
 
 ```
+--------------------------------------
 <Submission ID>
-=========================
+--------------------------------------
   Estimated Heat Loss = 
+  Design Region = 
   Power Heat Loss = 
   Recommended Heat Pump = 
   Cost Breakdown
@@ -28,7 +30,15 @@ A recently implemented data collection form provides an array of customer submit
   Total Cost, including VAT = 
 ```
 
-The provided API was built by a third party and somewhat strange behaviour has been reported in some cases - we are assured this will not be a problem in production.
+The provided API was built by a third party and somewhat strange behaviour has been reported in some cases - we are assured this will not be a problem in production. Additionally, some regions are not yet supported by the API, if the designRegion cannot be found by the API (it should return a 404 in this case), then the following output is expected, and further calculations should not be attempted.
+
+```
+--------------------------------------
+<Submission ID>
+--------------------------------------
+  Heating Loss: 29710.8
+  Warning: Could not find design region
+```
 
 ## Steps
 
