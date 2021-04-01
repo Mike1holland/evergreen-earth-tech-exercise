@@ -3,6 +3,7 @@
 The idea of the exercise is to solve the following problem, we don't expect it to take longer than two hours and all the data/tools should be available. Things we're looking for are:
 
  - Tests, either TDD or test-after
+ - Easy to read, maintainable code
  - Frequent git commits
 
  We're **not** looking for a UI!
