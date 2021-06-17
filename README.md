@@ -57,7 +57,7 @@ The provided API was built by a third party and somewhat strange behaviour has b
 
 ## Weather Data API
 
-An API is available to retrieve the heating degree days for a given location:
+An API is available to retrieve the heating degree days for a given location (`designRegion` in the houses.json file):
 ```
 https://063qqrtqth.execute-api.eu-west-2.amazonaws.com/v1/weather?location=<location>
 ```
