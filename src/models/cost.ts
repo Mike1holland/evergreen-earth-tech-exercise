@@ -1,5 +1,42 @@
 import type { WeatherClient } from "./weather";
 
+async function getCostResult(
+  house: House,
+  heatLoss: number,
+  powerHeatLoss: number,
+  recommendedHeatPump: HeatPump,
+  totalCost: number
+) {
+  /* Assumption: The cost will always be displayed in GBP */
+  return `--------------------------------------
+      ${house.submissionId}
+      --------------------------------------
+      \u00A0\u00A0Estimate Heat Loss: ${heatLoss}
+      \u00A0\u00A0Design Region: ${house.designRegion}
+      \u00A0\u00A0Power Heat Loss: ${powerHeatLoss}
+      \u00A0\u00A0Recommended Heat Pump: ${recommendedHeatPump.label}
+      \u00A0\u00A0Cost Breakdown:
+      ${recommendedHeatPump.costs
+        .map(
+          (cost) =>
+            `\u00A0\u00A0\u00A0\u00A0${cost.label} ${cost.cost.toLocaleString(
+              "en-GB",
+              {
+                style: "currency",
+                currency: "GBP",
+              }
+            )}`
+        )
+        .join("\n")}
+        \u00A0\u00A0Total Cost, including VAT: ${totalCost.toLocaleString(
+          "en-GB",
+          {
+            style: "currency",
+            currency: "GBP",
+          }
+        )}`.replaceAll("  ", "");
+}
+
 function calculateCost(recommendedHeatPump: HeatPump) {
   const totalCost = recommendedHeatPump.costs.reduce(
     (acc, cost) => acc + cost.cost,
@@ -44,6 +81,7 @@ export {
   calculateHouseHeatLoss,
   calculatePowerHeatLoss,
   getRecommendedHeatPump,
+  getCostResult,
 };
 
 interface HeatPump {
@@ -56,8 +94,6 @@ interface Cost {
   label: string;
   cost: number;
 }
-
-export type { HeatPump, Cost };
 
 const VAT = 1.05;
 
