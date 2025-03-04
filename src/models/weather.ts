@@ -106,6 +106,25 @@ class WeatherClient {
   }
 }
 
+function handleClientError(
+  error: ClientError,
+  submissionId: string,
+  heatLoss: number
+) {
+  switch (error.type) {
+    case ClientErrors.MissingCredentials:
+      return "Credentials missing, please use set-api-key command";
+    case ClientErrors.NotFound:
+      return `--------------------------------------
+      ${submissionId}
+      --------------------------------------
+      \u00A0\u00A0Estimate Heat Loss: ${heatLoss}
+      \u00A0\u00A0Warning: Could not find design region`.replaceAll("  ", "");
+    default:
+      return "An unexpected error occurred";
+  }
+}
+
 class ClientError extends Error {
   constructor(public type: ClientErrors) {
     super("Client error: " + type);
@@ -120,8 +139,13 @@ enum ClientErrors {
   MissingCredentials = "API key not set",
 }
 
-export { getWeatherClient, ClientError, ClientErrors };
-export type { WeatherClient };
+export {
+  getWeatherClient,
+  ClientError,
+  ClientErrors,
+  WeatherClient,
+  handleClientError,
+};
 
 const apiUrl = "https://063qqrtqth.execute-api.eu-west-2.amazonaws.com";
 

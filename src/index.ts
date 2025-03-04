@@ -9,9 +9,10 @@ import {
   calculateCost,
   getCostResult,
 } from "./models/cost";
+import { handleClientError } from "./models/weather";
 import houses from "./data/houses.json";
 import heatpumps from "./data/heat-pumps.json";
-import { getWeatherClient } from "./models/weather";
+import { ClientError, getWeatherClient } from "./models/weather";
 
 const program = new Command();
 
@@ -43,33 +44,40 @@ program
       return;
     }
     const heatLoss = calculateHouseHeatLoss(house);
-    const powerHeatLoss = await calculatePowerHeatLoss(
-      house,
-      heatLoss,
-      weatherClient
-    );
-    if (!powerHeatLoss) {
-      console.error("Failed to calculate power heat loss");
-      return;
-    }
-    const recommendedHeatPump = await getRecommendedHeatPump(
-      heatpumps,
-      powerHeatLoss
-    );
-    if (!recommendedHeatPump) {
-      console.error("No recommended heat pump found");
-      return;
-    }
-    const totalCost = calculateCost(recommendedHeatPump);
-    const costResult = getCostResult(
-      house,
-      heatLoss,
-      powerHeatLoss,
-      recommendedHeatPump,
-      totalCost
-    );
+    try {
+      const powerHeatLoss = await calculatePowerHeatLoss(
+        house,
+        heatLoss,
+        weatherClient
+      );
+      if (!powerHeatLoss) {
+        console.error("Failed to calculate power heat loss");
+        return;
+      }
+      const recommendedHeatPump = await getRecommendedHeatPump(
+        heatpumps,
+        powerHeatLoss
+      );
+      if (!recommendedHeatPump) {
+        console.error("No recommended heat pump found");
+        return;
+      }
+      const totalCost = calculateCost(recommendedHeatPump);
+      const costResult = getCostResult(
+        house,
+        heatLoss,
+        powerHeatLoss,
+        recommendedHeatPump,
+        totalCost
+      );
 
-    console.log(costResult);
+      console.log(costResult);
+    } catch (error) {
+      if (error instanceof ClientError) {
+        handleClientError(error, submissionId, heatLoss);
+      }
+      console.error(error);
+    }
   });
 
 program.parse(process.argv);
