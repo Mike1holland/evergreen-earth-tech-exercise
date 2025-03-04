@@ -9,7 +9,7 @@ async function getWeatherClient() {
   }
   const apiKey = await getAPIKey();
   if (!apiKey) {
-    throw new Error("API key not set");
+    throw new ClientError(ClientErrors.MissingCredentials);
   }
   return new WeatherClient({
     version: "v1",
@@ -24,13 +24,8 @@ async function getWeatherClient() {
 class WeatherClient {
   constructor(private readonly config: WeatherClientConfig) {}
 
-  async getWeatherByLocation(
-    location: string
-  ): Promise<LocationWeather | null> {
+  async getWeatherByLocation(location: string): Promise<LocationWeather> {
     const response = await this.get(Endpoints.Weather, { location });
-    if (!response) {
-      return null;
-    }
     return {
       location: response.location.location,
       degreeDays: parseFloat(response.location.degreeDays),
@@ -46,7 +41,7 @@ class WeatherClient {
     params: EndpointParams[typeof endpoint],
     retries = 0,
     backoff = 100
-  ): Promise<EndpointResponses[typeof endpoint] | null> {
+  ): Promise<EndpointResponses[typeof endpoint]> {
     const maxRetries = 5;
     try {
       const url = this.parseUrl(endpoint, params);
@@ -63,6 +58,14 @@ class WeatherClient {
     } catch (error) {
       //record error, would need to expand to alerting in production
       console.error(error);
+
+      if (
+        error instanceof AxiosError &&
+        error.response &&
+        error.response.status === 404
+      ) {
+        throw new ClientError(ClientErrors.NotFound);
+      }
       // Architecture would likely be responsible for backoff & retries in production but implemented here given CLI context
       if (
         error instanceof AxiosError &&
@@ -81,7 +84,7 @@ class WeatherClient {
         await this.delay(backoff);
         return this.get(endpoint, params, retries - 1, backoff * 2);
       }
-      return null;
+      throw new ClientError(ClientErrors.Generic);
     }
   }
 
@@ -103,7 +106,21 @@ class WeatherClient {
   }
 }
 
-export { getWeatherClient };
+class ClientError extends Error {
+  constructor(public type: ClientErrors) {
+    super("Client error: " + type);
+    this.name = "ClientError";
+    this.type = type;
+  }
+}
+
+enum ClientErrors {
+  Generic = "Failed to get weather data",
+  NotFound = "Location not found",
+  MissingCredentials = "API key not set",
+}
+
+export { getWeatherClient, ClientError, ClientErrors };
 export type { WeatherClient };
 
 const apiUrl = "https://063qqrtqth.execute-api.eu-west-2.amazonaws.com";

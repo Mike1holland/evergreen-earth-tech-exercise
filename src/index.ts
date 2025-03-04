@@ -39,7 +39,7 @@ program
     const weatherClient = await getWeatherClient();
     const house = houses.find((house) => house.submissionId === submissionId);
     if (!house) {
-      console.error("House not found");
+      console.error("Submission not found");
       return;
     }
     const heatLoss = calculateHouseHeatLoss(house);

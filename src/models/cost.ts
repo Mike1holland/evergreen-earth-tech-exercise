@@ -1,4 +1,4 @@
-import type { WeatherClient } from "./weather";
+import { ClientErrors, ClientError, type WeatherClient } from "./weather";
 
 async function getCostResult(
   house: House,
@@ -54,11 +54,19 @@ async function calculatePowerHeatLoss(
   heatLoss: number,
   weatherClient: WeatherClient
 ) {
-  const weather = await weatherClient.getWeatherByLocation(house.designRegion);
-  if (!weather) {
+  try {
+    const weather = await weatherClient.getWeatherByLocation(
+      house.designRegion
+    );
+    return heatLoss / weather?.degreeDays;
+  } catch (error) {
+    if (error instanceof ClientError) {
+      handleClientError(error, house.submissionId, heatLoss);
+    } else {
+      console.error(error);
+    }
     return null;
   }
-  return heatLoss / weather?.degreeDays;
 }
 
 /**
@@ -74,6 +82,29 @@ async function getRecommendedHeatPump(
     .filter((heatPump) => heatPump.outputCapacity >= powerHeatLoss)
     .sort((a, b) => a.outputCapacity - b.outputCapacity);
   return applicableHeatPumps.at(0) || null;
+}
+
+function handleClientError(
+  error: ClientError,
+  submissionId: string,
+  heatLoss: number
+) {
+  switch (error.type) {
+    case ClientErrors.MissingCredentials:
+      console.log("Credentials missing, please use set-api-key command");
+      break;
+    case ClientErrors.NotFound:
+      console.log(
+        `--------------------------------------
+      ${submissionId}
+      --------------------------------------
+      \u00A0\u00A0Estimate Heat Loss: ${heatLoss}
+      \u00A0\u00A0Warning: Could not find design region`.replaceAll("  ", "")
+      );
+      break;
+    default:
+      console.error(error);
+  }
 }
 
 export {
