@@ -22,8 +22,6 @@ async function getWeatherClient() {
 }
 
 class WeatherClient {
-  private baseUrl: URL = new URL(apiUrl, this.config.version);
-
   constructor(private readonly config: WeatherClientConfig) {}
 
   async getWeatherByLocation(
@@ -69,7 +67,14 @@ class WeatherClient {
       if (
         error instanceof AxiosError &&
         error.response &&
-        [429, 500, 502, 503, 504].includes(error.response.status) &&
+        [
+          429,
+          500,
+          502,
+          503,
+          504,
+          418, //🫖
+        ].includes(error.response.status) &&
         retries < maxRetries
       ) {
         retries++;
@@ -84,7 +89,7 @@ class WeatherClient {
     endpoint: Endpoints,
     params?: EndpointParams[typeof endpoint]
   ) {
-    const url = new URL(endpoint, this.baseUrl);
+    const url = new URL(`${this.config.version}/${endpoint}`, apiUrl);
     if (params) {
       for (const key of Object.keys(params)) {
         url.searchParams.append(key, params[key as keyof typeof params]);
