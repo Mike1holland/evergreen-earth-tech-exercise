@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="1.652">
+  <testsuite name="Cost Model Functions" errors="0" failures="0" skipped="0" timestamp="2025-03-04T21:29:16" time="1.554" tests="5">
+    <testcase classname="Cost Model Functions calculateCost should return the total cost including VAT" name="Cost Model Functions calculateCost should return the total cost including VAT" time="0.002">
+    </testcase>
+    <testcase classname="Cost Model Functions calculateHouseHeatLoss should return the correct heat loss" name="Cost Model Functions calculateHouseHeatLoss should return the correct heat loss" time="0">
+    </testcase>
+    <testcase classname="Cost Model Functions calculatePowerHeatLoss should return the correct power heat loss" name="Cost Model Functions calculatePowerHeatLoss should return the correct power heat loss" time="0.001">
+    </testcase>
+    <testcase classname="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" name="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" time="0">
+    </testcase>
+    <testcase classname="Cost Model Functions getCostResult should return the correct cost result string" name="Cost Model Functions getCostResult should return the correct cost result string" time="0.017">
+    </testcase>
+  </testsuite>
+</testsuites>
