@@ -6,7 +6,7 @@ The idea of the exercise is to solve the following problem, we don't expect it t
  - Easy to read, maintainable code
  - Frequent git commits
 
- We're **not** looking for a UI!
+ We're **not** looking for a UI! You can use either plain JavaScript or TypeScript.
 
 The provided API is mildly unstable by design, but if you cannot get it to work at all, please get in touch.
 
