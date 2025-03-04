@@ -30,8 +30,21 @@ class WeatherClient {
 
   constructor(private readonly config: WeatherClientConfig) {}
 
-  async getWeatherByLocation(location: string): Promise<Weather | null> {
-    return this.get(Endpoints.Weather, { location });
+  async getWeatherByLocation(
+    location: string
+  ): Promise<LocationWeather | null> {
+    const response = await this.get(Endpoints.Weather, { location });
+    if (!response) {
+      return null;
+    }
+    return {
+      location: response.location.location,
+      degreeDays: parseFloat(response.location.degreeDays),
+      groundTemp: parseFloat(response.location.groundTemp),
+      postcode: response.location.postcode,
+      lat: parseFloat(response.location.lat),
+      lng: parseFloat(response.location.lng),
+    };
   }
 
   private async get(
@@ -98,10 +111,10 @@ interface EndpointParams {
 }
 
 interface EndpointResponses {
-  [Endpoints.Weather]: Weather;
+  [Endpoints.Weather]: WeatherResponse;
 }
 
-interface Weather {
+interface WeatherResponse {
   location: {
     location: string;
     degreeDays: string;
@@ -110,6 +123,15 @@ interface Weather {
     lat: string;
     lng: string;
   };
+}
+
+interface LocationWeather {
+  location: string;
+  degreeDays: number;
+  groundTemp: number;
+  postcode: string;
+  lat: number;
+  lng: number;
 }
 
 interface WeatherClientConfig {
