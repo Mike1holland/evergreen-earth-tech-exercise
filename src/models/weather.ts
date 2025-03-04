@@ -21,10 +21,6 @@ async function getWeatherClient() {
   });
 }
 
-export { getWeatherClient };
-
-const apiUrl = "https://063qqrtqth.execute-api.eu-west-2.amazonaws.com";
-
 class WeatherClient {
   private baseUrl: URL = new URL(apiUrl, this.config.version);
 
@@ -101,6 +97,11 @@ class WeatherClient {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
+
+export { getWeatherClient };
+export type { WeatherClient };
+
+const apiUrl = "https://063qqrtqth.execute-api.eu-west-2.amazonaws.com";
 
 enum Endpoints {
   Weather = "weather",
