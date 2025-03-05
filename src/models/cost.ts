@@ -1,4 +1,4 @@
-import { ClientErrors, ClientError, type WeatherClient } from "./weather";
+import { type WeatherClient } from "./weather";
 
 async function getCostResult(
   house: House,

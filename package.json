@@ -2,13 +2,13 @@
   "name": "eecalc",
   "version": "1.0.0",
   "description": "The idea of the exercise is to solve the following problem, we don't expect it to take longer than two hours and all the data/tools should be available. Things we're looking for are:",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest"
   },
   "bin": {
-    "eecalc": "dist/index.js"
+    "eecalc": "dist/src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +20,9 @@
     "@types/promptly": "^3.0.5",
     "dotenv": "^16.4.7",
     "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
     "ts-jest": "^29.2.6",
-    "typescript": "^5.8.2",
-    "jest-junit": "^16.0.0"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "axios": "^1.8.1",
