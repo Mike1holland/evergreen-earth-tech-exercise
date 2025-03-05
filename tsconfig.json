@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    "rootDir": "src",
     "outDir": "dist",
     "strict": true,
     "target": "es6",
@@ -10,5 +11,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "functional-test/**/*"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

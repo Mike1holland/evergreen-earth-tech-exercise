@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="5" failures="0" errors="0" time="1.652">
-  <testsuite name="Cost Model Functions" errors="0" failures="0" skipped="0" timestamp="2025-03-04T21:29:16" time="1.554" tests="5">
-    <testcase classname="Cost Model Functions calculateCost should return the total cost including VAT" name="Cost Model Functions calculateCost should return the total cost including VAT" time="0.002">
+<testsuites name="jest tests" tests="14" failures="0" errors="0" time="2.341">
+  <testsuite name="Cost Model Functions" errors="0" failures="0" skipped="0" timestamp="2025-03-05T21:31:59" time="0.533" tests="5">
+    <testcase classname="Cost Model Functions calculateCost should return the total cost including VAT" name="Cost Model Functions calculateCost should return the total cost including VAT" time="0.006">
     </testcase>
     <testcase classname="Cost Model Functions calculateHouseHeatLoss should return the correct heat loss" name="Cost Model Functions calculateHouseHeatLoss should return the correct heat loss" time="0">
     </testcase>
     <testcase classname="Cost Model Functions calculatePowerHeatLoss should return the correct power heat loss" name="Cost Model Functions calculatePowerHeatLoss should return the correct power heat loss" time="0.001">
     </testcase>
-    <testcase classname="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" name="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" time="0">
+    <testcase classname="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" name="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" time="0.001">
     </testcase>
-    <testcase classname="Cost Model Functions getCostResult should return the correct cost result string" name="Cost Model Functions getCostResult should return the correct cost result string" time="0.017">
+    <testcase classname="Cost Model Functions getCostResult should return the correct cost result string" name="Cost Model Functions getCostResult should return the correct cost result string" time="0.019">
+    </testcase>
+  </testsuite>
+  <testsuite name="Cost Model Functions" errors="0" failures="0" skipped="0" timestamp="2025-03-05T21:31:59" time="1.592" tests="5">
+    <testcase classname="Cost Model Functions calculateCost should return the total cost including VAT" name="Cost Model Functions calculateCost should return the total cost including VAT" time="0.006">
+    </testcase>
+    <testcase classname="Cost Model Functions calculateHouseHeatLoss should return the correct heat loss" name="Cost Model Functions calculateHouseHeatLoss should return the correct heat loss" time="0">
+    </testcase>
+    <testcase classname="Cost Model Functions calculatePowerHeatLoss should return the correct power heat loss" name="Cost Model Functions calculatePowerHeatLoss should return the correct power heat loss" time="0.001">
+    </testcase>
+    <testcase classname="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" name="Cost Model Functions getRecommendedHeatPump should return the correct heat pump" time="0.001">
+    </testcase>
+    <testcase classname="Cost Model Functions getCostResult should return the correct cost result string" name="Cost Model Functions getCostResult should return the correct cost result string" time="0.024">
+    </testcase>
+  </testsuite>
+  <testsuite name="eecalc CLI" errors="0" failures="0" skipped="0" timestamp="2025-03-05T21:31:59" time="1.83" tests="4">
+    <testcase classname="eecalc CLI should set API key" name="eecalc CLI should set API key" time="0.009">
+    </testcase>
+    <testcase classname="eecalc CLI should calculate cost for a valid submission ID" name="eecalc CLI should calculate cost for a valid submission ID" time="0.002">
+    </testcase>
+    <testcase classname="eecalc CLI should handle submission not found" name="eecalc CLI should handle submission not found" time="0">
+    </testcase>
+    <testcase classname="eecalc CLI should handle ClientError" name="eecalc CLI should handle ClientError" time="0">
     </testcase>
   </testsuite>
 </testsuites>
